@@ -1198,6 +1198,10 @@
                 <div class="terms-link">
                     <a href="{{ route('terms') }}">A Note on Legal Disclaimer and Responsibilities Notice</a>
                 </div>
+                <div class="terms-link">
+                    <p>This is a trial product at the moment, that we have developed to reduce malware from 3rd party converter sites. It seems 90% accurate, but still sometimes download a video without audio, or vice versa. Please check, and let us know.</p>
+                </div>
+
             </footer>
         </div>
     </div>
