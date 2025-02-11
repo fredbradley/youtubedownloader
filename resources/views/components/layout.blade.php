@@ -1195,10 +1195,11 @@
 
             <footer class="py-16 text-center text-sm text-black dark:text-white/70">
                 <div class="hidden">Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})</div>
-                <div class="terms-link">
-                    <a href="{{ route('terms') }}">A Note on Legal Disclaimer and Responsibilities Notice</a>
+                <div class="terms-link p-3">
+                    <a class="text-blue-500" href="{{ route('terms') }}">A Note on Legal Disclaimer and Responsibilities Notice</a>
                 </div>
-                <div class="terms-link">
+
+                <div class="terms-link p-3">
                     <p>This is a trial product at the moment, that we have developed to reduce malware from 3rd party converter sites. It seems 90% accurate, but still sometimes download a video without audio, or vice versa. Please check, and let us know.</p>
                 </div>
 
