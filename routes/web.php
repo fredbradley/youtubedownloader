@@ -28,6 +28,10 @@ Route::get('/auth/callback', function () {
     ]);
 
     Auth::login($user);
+    activity()
+        ->causedBy($user)
+        ->performedOn($user)
+        ->log('User logged in using Google');
 
     return redirect()->route('form');
 
