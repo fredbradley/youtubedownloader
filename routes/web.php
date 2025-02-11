@@ -15,7 +15,17 @@ Route::view('terms', 'terms')->name('terms');
 
 Route::get('/auth/redirect', function () {
     return Socialite::driver('google')->redirect();
-});
+})->name('login');
+
+Route::get('/auth/logout', function () {
+    if (auth()->user()) {
+        activity()
+            ->causedBy(auth()->user())
+            ->log('User logged out');
+        Auth::logout();
+    }
+    return redirect()->route('form');
+})->name('logout');
 
 Route::get('/auth/callback', function () {
     $user = Socialite::driver('google')->user();

@@ -1,4 +1,5 @@
 <x-layout>
+    @auth
     <form action="{{ route('show') }}" method="POST" class="space-y-4">
         @csrf
         <input type="url" name="url" required placeholder="Enter YouTube URL"
@@ -9,4 +10,8 @@
             Download Video
         </button>
     </form>
+        @endauth
+    @guest
+        <p class="text-center">Please <a href="{{ route('login') }}" class="text-blue-500">login</a> to download videos.</p>
+    @endguest
 </x-layout>
