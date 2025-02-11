@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.3",
         "laravel/framework": "^11.31",
+        "laravel/socialite": "^5.17",
         "laravel/tinker": "^2.9",
         "norkunas/youtube-dl-php": "dev-master"
     },
