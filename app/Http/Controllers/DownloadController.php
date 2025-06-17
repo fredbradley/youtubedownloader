@@ -38,7 +38,7 @@ class DownloadController extends Controller
         $options = Options::create()
             ->downloadPath($downloadsPath)
             ->ffmpegLocation(config('app.ffmpeg_location'))
-            //->mergeOutputFormat('mp4')
+            ->mergeOutputFormat('mp4')
             //->format('bestvideo*+bestaudio/best')
             ->url($request->get('url'));
 
