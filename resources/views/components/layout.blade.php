@@ -1187,6 +1187,25 @@
                     </nav>
                 @endif
             </header>
+            @if ($errors->any())
+                <div class="max-w-4xl mx-auto mt-6 px-4">
+                    <div class="flex items-start bg-red-100 border border-red-300 text-red-800 text-sm rounded-lg p-4 shadow">
+                        <svg class="w-5 h-5 mt-0.5 mr-3 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2"
+                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.054 0 1.58-1.136.987-2L13.987 4c-.527-.843-1.447-.843-1.974 0L3.08 17c-.593.864-.067 2 .987 2z"/>
+                        </svg>
+                        <div class="flex-1">
+                            <p class="font-semibold mb-1">There were some issues:</p>
+                            <ul class="list-disc list-inside space-y-1">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <div class="bg-white shadow-lg rounded-xl p-6 w-full">
                 <h1 class="text-2xl font-bold text-gray-800 mb-4 text-center">{{ $pageHeader ?? config('app.name') }}</h1>

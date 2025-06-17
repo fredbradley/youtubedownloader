@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use YoutubeDl\Options;
@@ -28,14 +29,13 @@ class DownloadController extends Controller
         return response()->download($file);
     }
 
-    public function show(Request $request): View
+    public function show(Request $request): View|RedirectResponse
     {
         activity()
             ->causedBy(auth()->user())
             ->withProperties(['url' => $request->get('url')])
             ->log('User requested download');
         $downloadsPath = storage_path('app/public/downloads');
-        //$ffmpegLocation = config('app.ffmpeg_location');
 
         $yt = new YoutubeDl;
         $yt->setBinPath(config('app.ytdlp_bin_path'));
@@ -56,7 +56,12 @@ class DownloadController extends Controller
 
         foreach ($collection->getVideos() as $video) {
             if ($video->getError() !== null) {
-                echo "Error downloading video: {$video->getError()}.";
+                activity()
+                    ->causedBy(auth()->user())
+                    ->withProperties(['video' => $video->getFilename(), 'url' => $request->get('url')])
+                    ->log('Error downloading video');
+
+                return back()->withErrors(['error' => 'Error downloading video: '.$video->getError()]);
             } else {
                 $files->push($video->getFilename());
                 activity()
