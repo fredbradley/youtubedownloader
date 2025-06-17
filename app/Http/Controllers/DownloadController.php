@@ -10,6 +10,11 @@ use YoutubeDl\YoutubeDl;
 
 class DownloadController extends Controller
 {
+    public static function getUrlToFile(string $filename): string
+    {
+        return url('downloads/'.$filename);
+    }
+
     public function download(Request $request): BinaryFileResponse
     {
         $downloadsPath = storage_path('app/public/downloads');
@@ -39,7 +44,10 @@ class DownloadController extends Controller
             ->downloadPath($downloadsPath)
             ->ffmpegLocation(config('app.ffmpeg_location'))
             ->mergeOutputFormat('mp4')
-            //->format('bestvideo*+bestaudio/best')
+            ->remuxVideo('mp4')
+            ->checkAllFormats(true)
+            ->format('bestvideo+bestaudio')
+            ->recodeVideo('mp4')
             ->url($request->get('url'));
 
         $collection = $yt->download($options);
