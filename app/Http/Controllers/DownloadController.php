@@ -30,20 +30,16 @@ class DownloadController extends Controller
             ->withProperties(['url' => $request->get('url')])
             ->log('User requested download');
         $downloadsPath = storage_path('app/public/downloads');
-        $ffmpegLocation = config('app.ffmpeg_location');
-        // $command = config('app.ytdlp_bin_path').' '.$request->get('url').' --compat-options no-certifi --ffmpeg-location '.$ffmpegLocation.'  --cookies-from-browser chrome --merge-output-format mp4 --format="bestvideo+bestaudio[ext=m4a]/best" --output "'.$downloadsPath.'/%(title)s.%(ext)s"';
-        //        $result = Process::run($command);
-        //     $output = $result->output();
+        //$ffmpegLocation = config('app.ffmpeg_location');
 
-        // dd($output);
         $yt = new YoutubeDl;
         $yt->setBinPath(config('app.ytdlp_bin_path'));
 
         $options = Options::create()
             ->downloadPath($downloadsPath)
             ->ffmpegLocation(config('app.ffmpeg_location'))
-            ->mergeOutputFormat('mp4')
-            ->format('bestvideo+bestaudio[ext=m4a]/best')
+            //->mergeOutputFormat('mp4')
+            //->format('bestvideo*+bestaudio/best')
             ->url($request->get('url'));
 
         $collection = $yt->download($options);
