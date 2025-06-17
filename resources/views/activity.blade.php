@@ -21,8 +21,10 @@
                         {{ $activity->causer->name ?? 'System' }}
                     </td>
                     <td class="px-4 py-2 text-gray-700">
-                        @if ($activity->description === 'Downloaded to device')
-                            Video: {{ $activity->properties['file'] ?? 'N/A' }}
+                        @if (isset($activity->properties['file']))
+                            File: {{ $activity->properties['file'] ?? 'N/A' }}
+                        @elseif (isset($activity->properties['url']))
+                            URL: {{ $activity->properties['url'] ?? 'N/A' }}
                         @else
                             {{-- Show nothing or other details if needed --}}
                         @endif
