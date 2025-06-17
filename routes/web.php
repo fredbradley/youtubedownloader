@@ -13,6 +13,12 @@ Route::post('show', [DownloadController::class, 'show'])->name('show');
 Route::get('download', [DownloadController::class, 'download'])->name('download');
 Route::view('terms', 'terms')->name('terms');
 
+Route::get('activity', function () {
+    $activities = \App\Models\Activity::latest()->take(100)->get();
+    return view('activity', compact('activities'));
+})->name('activity');
+
+
 Route::get('/auth/redirect', function () {
     return Socialite::driver('google')->redirect();
 })->name('login');
